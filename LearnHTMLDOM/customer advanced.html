@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <style>
+            img{
+                width: 50px;
+                height: 50px;
+            }
+        </style>
+        <script>
+            function xulyThemkhachhang()
+            {
+                //Bước 1:
+                //Ta phải lấy được các dữ liệu trong ô nhập liệu
+                ten=document.getElementById("tenkhachhang").value
+                // email=formkhachhang.emailkhachhang.value
+                phone=document.getElementById("phonekhachhang").value
+                email=document.getElementById("emailkhachhang").value
+                // phone=formkhachhang.phonekhachhang.value
+                //Bước 2:
+                //Ta phải lấy tên, email, phone vào table ở bên dưới
+                //bằng mô hình HTML DOM
+                //Bước 2.1:
+                //Phải truy xuất được đối tượng tbody tại vì dữ liệu
+                //phải đưa vào thẻ tbody
+                // alert("Xuống đây tức là đọc thành công 1")
+                tbodykh=document.getElementById("tbodykhachhang")
+                // alert("Xuống đây tức là đọc thành công 2")
+                //Bước2.2:
+                //Tạo đối tượng tr
+                tr_kh=document.createElement("tr")
+                //đưa tr vào tbody
+                tbodykh.appendChild(tr_kh)
+                // alert("Xuống đây tức là đọc thành công 3")
+                //Bước 2.3:
+                //Vì ta có email ten phone nên phải tạo 3 td đẩy vào tr_kh
+                td_ten=document.createElement("td")
+                td_ten.innerText=ten
+                td_email=document.createElement("td")
+                td_email.innerText=email
+                td_phone=document.createElement("td")
+                td_phone.innerText=email
+                //Bổ sung loại khách hàng
+                td_loaikh=document.createElement("td")
+                img_loaikh=document.createElement("img")
+
+                if (formkhachhang.loaikhachhang.value=="vip")
+                    img_loaikh.setAttribute("src","Hinh/icon_vip.png")
+                else
+                    img_loaikh.setAttribute("src","Hinh/ic_normal.png")
+                //đưa hình vào td_loaikh trước
+                td_loaikh.appendChild(img_loaikh)
+
+                tr_kh.appendChild(td_ten)
+                tr_kh.appendChild(td_email)
+                tr_kh.appendChild(td_phone)
+                //bổ sung td_loaikh vì nó là cột ngoài cùng nên để ở đây
+                tr_kh.appendChild(td_loaikh)
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Nội dung trang</h1>
+        <form name="formkhachhang">
+        <table border="1">
+            <tr>
+                <td>Tên khách hàng:</td>
+                <td><input type="text" name="tenkhachhang" id="tenkhachhang"></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="email" name="emailkhachhang" id="emailkhachhang"></td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td><input type="tel" name="phonekhachhang" id="phonekhachhang"></td>
+            </tr>
+            <tr>
+                <td>Loại khách hàng:</td>
+                <td>
+                    <input type="radio" name="loaikhachhang" id="khachvip" value="vip">
+                    <label for="khachvip">Khách VIP</label>
+                    <br/>
+                    <input type="radio" name="loaikhachhang" id="khachthuong" value="normal">
+                    <label for="khachthuong">Khách thường</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="button" value="Thêm khách hàng" onclick="xulyThemkhachhang()">
+                </td>
+            </tr>
+        </table>
+        </form>
+        <table border="1">
+            <caption>Danh sách khách hàng</caption>
+            <thead>
+                <tr>
+                    <th>Tên khách hàng</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Vip/Normal</th>
+                </tr>
+            </thead>
+            <tbody id="tbodykhachhang">
+
+            </tbody>
+        </table>
+    </body>
+</html>
