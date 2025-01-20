@@ -1,0 +1,260 @@
+<html>
+<head>
+    <title>Đăng ký thành viên</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        tbody tr:hover {
+            background-color:yellow;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        .required::after {
+            content: "*";
+            color: red;
+        }
+        .color-radio {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="background-color:rgba(224, 195, 159, 0.552);">
+    <div class="form-container">
+        <h1>Đăng ký thành viên</h1>
+        <hr/>
+        <form id="registrationForm">
+            <label for="name" class="required">Tên:</label>
+            <input type="text" id="name" name="name"><br><br>
+            
+            <label for="dob" class="required">Ngày sinh:</label><br>
+            <label for="day" class="required">Ngày:</label>
+            <select id="day" name="day"></select>
+            <label for="month" class="required">Tháng:</label>
+            <select id="month" name="month"></select>
+            <label for="year" class="required">Năm:</label>
+            <select id="year" name="year"></select><br><br>
+            
+            <label class="required">Giới tính:</label>
+            <input type="radio" id="male" name="gender" value="Nam">
+            <label for="male">Nam</label>
+            <input type="radio" id="female" name="gender" value="Nữ">
+            <label for="female">Nữ</label><br><br>
+
+            <label for="email" class="required">Email:</label>
+            <input type="email" id="email" name="email"><br><br>
+            
+            <label class="required">Sở thích của bạn:</label><br>
+            <input type="checkbox" id="shopping" name="hobbies" value="Mua sắm">
+            <label for="shopping">Mua sắm</label><br>
+            <input type="checkbox" id="travel" name="hobbies" value="Du lịch">
+            <label for="travel">Du lịch</label><br>
+            <input type="checkbox" id="chatting" name="hobbies" value="Tán gẫu">
+            <label for="chatting">Tán gẫu</label><br>
+            <input type="checkbox" id="music" name="hobbies" value="Nghe nhạc">
+            <label for="music">Nghe nhạc</label><br><br>
+
+            <label class="required">Màu yêu thích:</label><br>
+            <input type="radio" id="blue" name="favoriteColor" value="Xanh da trời">
+            <label for="blue" style="background-color: skyblue;">Màu xanh da trời</label><br/>
+            <input type="radio" id="red" name="favoriteColor" value="Đỏ">
+            <label for="red" style="background-color: red;">Màu đỏ</label><br/>
+            <input type="radio" id="yellow" name="favoriteColor" value="Vàng">
+            <label for="yellow" style="background-color: yellow;">Màu vàng</label><br/>
+            <input type="radio" id="green" name="favoriteColor" value="Màu xanh lá">
+            <label for="green" style="background-color: green;">Xanh lá</label><br/>
+            <input type="radio" id="purple" name="favoriteColor" value="Tím">
+            <label for="purple" style="background-color: purple;">Màu tím</label><br/>
+            <input type="radio" id="khac" name="favoriteColor" value="Khác">
+            <label for="khac">Khác</label><br/>
+            
+            <button type="button" onclick="register()" style="margin-top: 15px;">Đăng ký</button>
+            <button type="button" onclick="resetForm()" style="margin-top: 15px;">Tiếp</button>
+        </form>
+    </div>
+    
+    <h3>Thông tin thành viên</h3>
+    <table id="memberTable">
+        <thead style="background-color: blue; color:aliceblue">
+            <tr>
+                <th>Tên</th>
+                <th>Ngày sinh</th>
+                <th>Giới tính</th>
+                <th>Email</th>
+                <th>Sở thích</th>
+                <th>Màu yêu thích</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dữ liệu thành viên sẽ được hiển thị ở đây -->
+        </tbody>
+    </table>
+
+    <script>
+        // Hàm tạo danh sách ngày, tháng, năm
+        function loadDateOptions() {
+            const daySelect = document.getElementById("day");
+            const monthSelect = document.getElementById("month");
+            const yearSelect = document.getElementById("year");
+
+            // Tạo dropdown ngày (1 - 31)
+            for (let i = 1; i <= 31; i++) {
+                let option = document.createElement("option");
+                option.value = i;
+                option.text = i;
+                daySelect.appendChild(option);
+            }
+
+            // Tạo dropdown tháng (1 - 12)
+            for (let i = 1; i <= 12; i++) {
+                let option = document.createElement("option");
+                option.value = i;
+                option.text = i;
+                monthSelect.appendChild(option);
+            }
+
+            // Tạo dropdown năm (1900 - 2025)
+            for (let i = 1900; i <= 2025; i++) {
+                let option = document.createElement("option");
+                option.value = i;
+                option.text = i;
+                yearSelect.appendChild(option);
+            }
+        }
+
+        // Hàm kiểm tra dữ liệu trước khi đăng ký
+        function validateForm() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const day = document.getElementById("day").value;
+            const month = document.getElementById("month").value;
+            const year = document.getElementById("year").value;
+            const hobbies = document.querySelectorAll('input[name="hobbies"]:checked');
+            const favoriteColor = document.querySelector('input[name="favoriteColor"]:checked');
+
+            // Kiểm tra tên
+            if (name === "") {
+                alert("Tên không được bỏ trống!");
+                return false;
+            }
+
+            // Kiểm tra giới tính
+            if (!gender) {
+                alert("Giới tính không được bỏ trống!");
+                return false;
+            }
+
+            // Kiểm tra email
+            if (email === "") {
+                alert("Email không được bỏ trống!");
+                return false;
+            }
+
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(email)) {
+                alert("Email không hợp lệ!");
+                return false;
+            }
+
+            // Kiểm tra ngày tháng năm sinh
+            if (!day || !month || !year) {
+                alert("Ngày tháng năm sinh không được bỏ trống!");
+                return false;
+            }
+
+            // Kiểm tra sở thích
+            if (hobbies.length === 0) {
+                alert("Bạn phải chọn ít nhất một sở thích!");
+                return false;
+            }
+
+            // Kiểm tra màu yêu thích
+            if (!favoriteColor) {
+                alert("Bạn phải chọn màu yêu thích!");
+                return false;
+            }
+
+            return true;
+        }
+
+        // Hàm đăng ký thành viên
+        function register() {
+            if (!validateForm()) {
+                return;
+            }
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const day = document.getElementById("day").value;
+            const month = document.getElementById("month").value;
+            const year = document.getElementById("year").value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const dob = `${day}/${month}/${year}`;
+
+            // Lấy sở thích
+            const hobbies = [];
+            document.querySelectorAll('input[name="hobbies"]:checked').forEach(checkbox => {
+                hobbies.push(checkbox.value);
+            });
+            const hobbiesText = hobbies.join(", ");
+
+            // Lấy màu yêu thích
+            const favoriteColor = document.querySelector('input[name="favoriteColor"]:checked').value;
+
+            // Thêm dữ liệu vào bảng
+            const table = document.getElementById("memberTable").getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+            const cell5 = newRow.insertCell(4);
+            const cell6 = newRow.insertCell(5);
+
+            cell1.textContent = name;
+            cell2.textContent = dob;
+            cell3.textContent = gender;
+            cell4.textContent = email;
+            cell5.textContent = hobbiesText;
+            cell6.textContent = favoriteColor;
+        }
+
+        // Hàm reset form
+        function resetForm() {
+            document.getElementById("registrationForm").reset();
+            document.getElementById("name").focus();
+        }
+
+        // Tạo danh sách ngày tháng năm khi trang web được tải
+        window.onload = function() {
+            loadDateOptions();
+        }
+
+        // Sự kiện mouseover và mouseout cho các dòng trong bảng
+        document.getElementById("memberTable").addEventListener("mouseover", function(event) {
+            if (event.target.tagName === "TR") {
+                event.target.style.backgroundColor = "yellow";
+            }
+        });
+
+        document.getElementById("memberTable").addEventListener("mouseout", function(event) {
+            if (event.target.tagName === "TR") {
+                event.target.style.backgroundColor = "white";
+            }
+        });
+    </script>
+</body>
+</html>
