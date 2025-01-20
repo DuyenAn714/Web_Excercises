@@ -1,0 +1,133 @@
+<html>
+<head>
+    <title>Online Classifield</title>
+    <style>
+        .icon-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .icon-container img {
+            width: 100%; 
+            height: 100%;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function handleSearch() {
+            document.querySelector('form').innerHTML = "<h3>This is your result</h3>";
+        }
+    </script>
+</head>
+<body style="background-color: rgba(0, 255, 255, 0.193);" align="center">
+    <h1 style="color: red;">Online Classifieds Search Form</h1>
+    <hr style="height:1; background-color:brown">
+    <form name="FormOnlineClassified" method="get">
+        <table align="center">
+            <tr>
+                <td colspan="3">
+                    <h3>1&#10089; Search for a classified in the following section:</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="radio" id="employment" name="job" value="Employment">
+                        <label for="employment">Employment</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="for_sale" name="job" value="For Sale">
+                        <label for="for_sale">For Sale</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="housing" name="job" value="Housing">
+                        <label for="housing">Housing</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="radio" id="personal" name="job" value="Personal">
+                        <label for="personal">Personal</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="miscellaneous" name="job" value="Miscellaneous">
+                        <label for="miscellaneous">Miscellaneous</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="all_of_the_above" name="job" value="All of the above">
+                        <label for="all_of_the_above">All of the above</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <h3>2&#10089; Search the following publications:</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        <input type="checkbox" id="midwest_times" name="publications" value="Midwest Times">
+                        <label for="midwest_times">Midwest Times</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="great_lakes_classifieds" name="publications" value="Great Lakes Classifieds">
+                        <label for="great_lakes_classifieds">Great Lakes Classifieds</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="checkbox" id="modern_news" name="publications" value="Modern News">
+                        <label for="modern_news">Modern News</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="middleton_daily" name="publications" value="Middleton Daily">
+                        <label for="middleton_daily">Middleton Daily</label>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <input type="checkbox" id="employment_today" name="publications" value="Employment Today">
+                        <label for="employment_today">Employment Today</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="cashtown_daily_news" name="publications" value="Cashtown Daily News">
+                        <label for="cashtown_daily_news">Cashtown Daily News</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="padding-top: 20px;">
+                    <h3>3&#10089; From <input type="date" id="fromDate" name="fromDate"> to <input type="date" id="toDate" name="toDate"></h3>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <h3>4&#10089; Enter a few keywords to describe the classified.</h3>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input type="text" id="keywords" name="keywords" style="width: 100%;">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <h3>5&#10089; Click one of the options below:</h3>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="icon-container">
+                    <a href="#" onclick="handleSearch()">
+                        <img src="Hinh/Search.gif" alt="Search">
+                    </a>
+                    <a href="https://support.google.com/?hl=en">
+                        <img src="Hinh/Help.gif" alt="Help">
+                    </a>
+                    <input type="image" src="Hinh/Cancel.gif" alt="Cancel" onclick="document.querySelector('form').reset();">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
