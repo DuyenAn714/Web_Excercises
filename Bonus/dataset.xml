@@ -1,0 +1,37 @@
+<root>
+    <sinhvien>
+        <mssv>K114069876</mssv>
+        <hoTen>Vô Danh</hoTen>
+        <ngaySinh>1/1/1993</ngaySinh>
+        <gioiTinh>Nam</gioiTinh>
+        <hinh>student_icon.png</hinh>
+    </sinhvien>
+    <sinhvien>
+        <mssv>K113245678</mssv>
+        <hoTen>Nguyễn Thị Bảo</hoTen>
+        <ngaySinh>5/5/1995</ngaySinh>
+        <gioiTinh>Nữ</gioiTinh>
+        <hinh>student_icon.png</hinh>
+    </sinhvien>
+    <sinhvien>
+        <mssv>K115678900</mssv>
+        <hoTen>Trần Minh Tuấn</hoTen>
+        <ngaySinh>7/7/1996</ngaySinh>
+        <gioiTinh>Nam</gioiTinh>
+        <hinh>student_icon.png</hinh>
+    </sinhvien>
+    <sinhvien>
+        <mssv>K112233445</mssv>
+        <hoTen>Phạm Thị Lan</hoTen>
+        <ngaySinh>2/8/1994</ngaySinh>
+        <gioiTinh>Nữ</gioiTinh>
+        <hinh>student_icon.png</hinh>
+    </sinhvien>
+    <sinhvien>
+        <mssv>K119876543</mssv>
+        <hoTen>Lê Văn Hoàng</hoTen>
+        <ngaySinh>3/3/1992</ngaySinh>
+        <gioiTinh>Nam</gioiTinh>
+        <hinh>student_icon.png</hinh>
+    </sinhvien>
+</root>

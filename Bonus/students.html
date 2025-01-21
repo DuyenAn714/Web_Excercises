@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <script>
+            function hienthi_sinhvien() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "dataset.xml", true);
+                xhr.send();
+                
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var xmlDoc = xhr.responseXML;
+                        var sinhviens = xmlDoc.getElementsByTagName("sinhvien");
+                        var tableBody = document.getElementById("tbodySinhVien");
+                        tableBody.innerHTML = ""; // Clear the table body before adding new rows
+                        
+                        for (var i = 0; i < sinhviens.length; i++) {
+                            var sinhvien = sinhviens[i];
+                            var mssv = sinhvien.getElementsByTagName("mssv")[0].childNodes[0].nodeValue;
+                            var hoTen = sinhvien.getElementsByTagName("hoTen")[0].childNodes[0].nodeValue;
+                            var ngaySinh = sinhvien.getElementsByTagName("ngaySinh")[0].childNodes[0].nodeValue;
+                            var gioiTinh = sinhvien.getElementsByTagName("gioiTinh")[0].childNodes[0].nodeValue;
+                            var hinh = sinhvien.getElementsByTagName("hinh")[0].childNodes[0].nodeValue;
+                            
+                            // Tạo dòng mới cho bảng
+                            var row = document.createElement("tr");
+                            
+                            // Thêm thông tin vào từng cột
+                            var cellMSSV = document.createElement("td");
+                            cellMSSV.innerText = mssv;
+                            row.appendChild(cellMSSV);
+                            
+                            var cellHoTen = document.createElement("td");
+                            cellHoTen.innerText = hoTen;
+                            row.appendChild(cellHoTen);
+                            
+                            var cellNgaySinh = document.createElement("td");
+                            cellNgaySinh.innerText = ngaySinh;
+                            row.appendChild(cellNgaySinh);
+                            
+                            var cellGioiTinh = document.createElement("td");
+                            cellGioiTinh.innerText = gioiTinh;
+                            row.appendChild(cellGioiTinh);
+                            
+                            var cellHinh = document.createElement("td");
+                            var img = document.createElement("img");
+                            img.src = "images/" + hinh;
+                            img.width = 50;
+                            img.height = 50;
+                            cellHinh.appendChild(img);
+                            row.appendChild(cellHinh);
+                            
+                            // Thêm màu nền cho sinh viên nam hoặc nữ
+                            if (gioiTinh == "Nam") {
+                                row.style.backgroundColor = "yellow"; // Màu vàng cho nam
+                            } else {
+                                row.style.backgroundColor = "pink"; // Màu hồng cho nữ
+                            }
+                            
+                            // Thêm dòng vào bảng
+                            tableBody.appendChild(row);
+                        }
+                    }
+                };
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Danh sách Sinh viên</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Mã sinh viên</th>
+                    <th>Họ tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>Hình</th>
+                </tr>
+            </thead>
+            <tbody id="tbodySinhVien">
+                <!-- Danh sách sinh viên sẽ được thêm vào đây -->
+            </tbody>
+        </table>
+        <button onclick="hienthi_sinhvien()">Hiển thị Sinh viên</button>
+    </body>
+</html>
