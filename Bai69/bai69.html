@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Nhân viên theo Title</title>
+    <script>
+        // Dữ liệu XML
+        var xmlData = `<?xml version="1.0" encoding="UTF-8"?> 
+            <employees>
+                <employee id="1" title="Architect">
+                    <name>Đoàn Ái Nương</name>
+                    <phone>01656152042</phone>
+                </employee>
+                <employee id="2" title="Engineer">
+                    <name>Đoàn Chinh Thuần</name>
+                    <phone>01656152042</phone>
+                </employee>
+                <employee id="3" title="Teacher">
+                    <name>Trần Chính Nghĩa</name>
+                    <phone>01656152042</phone>
+                </employee>
+                <employee id="4" title="Architect">
+                    <name>Châu Bá Thông</name>
+                    <phone>01656152042</phone>
+                </employee>
+                <employee id="5" title="Engineer">
+                    <name>Kiểu Phong</name>
+                    <phone>01656152042</phone>
+                </employee>
+            </employees>`;
+
+        // Hàm để nạp các title vào combobox
+        function loadTitles() {
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(xmlData, "text/xml");
+
+            // Lấy tất cả các employee và title
+            var employees = xmlDoc.getElementsByTagName("employee");
+            var titles = new Set();  // Sử dụng Set để loại bỏ các title trùng lặp
+
+            for (var i = 0; i < employees.length; i++) {
+                var title = employees[i].getAttribute("title");
+                titles.add(title);
+            }
+
+            // Nạp các title vào combobox
+            var comboBox = document.getElementById("titleComboBox");
+            titles.forEach(function(title) {
+                var option = document.createElement("option");
+                option.value = title;
+                option.text = title;
+                comboBox.appendChild(option);
+            });
+        }
+
+        // Hàm để nạp danh sách nhân viên vào bảng khi chọn title
+        function loadEmployeesByTitle() {
+            var selectedTitle = document.getElementById("titleComboBox").value;
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(xmlData, "text/xml");
+
+            var employees = xmlDoc.getElementsByTagName("employee");
+            var tableBody = document.getElementById("employeesTableBody");
+            tableBody.innerHTML = "";  // Xóa bảng cũ
+
+            // Lọc và hiển thị nhân viên theo title
+            for (var i = 0; i < employees.length; i++) {
+                var employee = employees[i];
+                var title = employee.getAttribute("title");
+
+                if (title === selectedTitle) {
+                    var row = document.createElement("tr");
+
+                    var nameCell = document.createElement("td");
+                    nameCell.innerText = employee.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+                    row.appendChild(nameCell);
+
+                    var phoneCell = document.createElement("td");
+                    phoneCell.innerText = employee.getElementsByTagName("phone")[0].childNodes[0].nodeValue;
+                    row.appendChild(phoneCell);
+
+                    tableBody.appendChild(row);
+                }
+            }
+        }
+
+        // Gọi hàm để load title khi trang web tải xong
+        window.onload = function() {
+            loadTitles();
+        };
+    </script>
+</head>
+<body>
+    <h1>Danh sách Nhân viên theo Title</h1>
+
+    <label for="titleComboBox">Chọn Title:</label>
+    <select id="titleComboBox" onchange="loadEmployeesByTitle()">
+        <option value="">Chọn title</option>
+        <!-- Các options sẽ được nạp qua JavaScript -->
+    </select>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Tên</th>
+                <th>Số điện thoại</th>
+            </tr>
+        </thead>
+        <tbody id="employeesTableBody">
+            <!-- Các nhân viên sẽ được nạp vào đây -->
+        </tbody>
+    </table>
+</body>
+</html>
