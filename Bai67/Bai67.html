@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Sinh Viên</title>
+    <link rel="stylesheet" href="mainstyle.css">
+    <script>
+        var dataset = `
+            <sinhviens>
+                <sinhvien>
+                    <mssv>K123456789</mssv>
+                    <hoTen>Quách Thị Bán Bún Bò</hoTen>
+                    <ngaySinh>7/7/1997</ngaySinh>
+                    <gioiTinh>Nữ</gioiTinh>
+                </sinhvien>
+                <sinhvien>
+                    <mssv>K12345000</mssv>
+                    <hoTen>Hồng Lâu Mộng</hoTen>
+                    <ngaySinh>2/2/1992</ngaySinh>
+                    <gioiTinh>Nam</gioiTinh>
+                </sinhvien>
+                <sinhvien>
+                    <mssv>K1674000</mssv>
+                    <hoTen>Hồ Văn Đồ</hoTen>
+                    <ngaySinh>2/7/1997</ngaySinh>
+                    <gioiTinh>Nam</gioiTinh>
+                </sinhvien>
+            </sinhviens>
+        `;
+
+        function tai_danhsach_sinhvien() {
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(dataset, "text/xml");
+            var students = xmlDoc.getElementsByTagName("sinhvien");
+            var tbody = document.getElementById("tbodysinhvien");
+
+            tbody.innerHTML = ""; // Xóa dữ liệu cũ
+            for (let i = 0; i < students.length; i++) { // Dùng `let` để tạo phạm vi block
+                let student = students[i]; // Dùng `let` để giữ giá trị tại mỗi vòng lặp
+                let mssv = student.getElementsByTagName("mssv")[0].childNodes[0].nodeValue;
+                let hoTen = student.getElementsByTagName("hoTen")[0].childNodes[0].nodeValue;
+                let ngaySinh = student.getElementsByTagName("ngaySinh")[0].childNodes[0].nodeValue;
+                let gioiTinh = student.getElementsByTagName("gioiTinh")[0].childNodes[0].nodeValue;
+
+                let tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${mssv}</td>
+                    <td>${hoTen}</td>
+                    <td>${ngaySinh}</td>
+                    <td>${gioiTinh}</td>
+                `;
+
+                // Thêm sự kiện chuột
+                tr.addEventListener("mouseover", function () {
+                    this.style.backgroundColor = "yellow";
+                });
+                tr.addEventListener("mouseout", function () {
+                    this.style.backgroundColor = "white";
+                });
+
+                // Thêm sự kiện click để mở trang chi tiết
+                tr.addEventListener("click", function () {
+                    var detailUrl = `detail.html?mssv=${encodeURIComponent(mssv)}&hoTen=${encodeURIComponent(hoTen)}&ngaySinh=${encodeURIComponent(ngaySinh)}&gioiTinh=${encodeURIComponent(gioiTinh)}`;
+                    window.location.href = detailUrl;
+                });
+
+                tbody.appendChild(tr);
+            }
+        }
+
+        // Sắp xếp theo cột
+        function sapXep(cot) {
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(dataset, "text/xml");
+            var students = Array.from(xmlDoc.getElementsByTagName("sinhvien"));
+
+            // Sắp xếp tăng dần
+            students.sort((a, b) => {
+                var valA = a.getElementsByTagName(cot)[0].childNodes[0].nodeValue;
+                var valB = b.getElementsByTagName(cot)[0].childNodes[0].nodeValue;
+                return valA.localeCompare(valB);
+            });
+
+            // Cập nhật lại chuỗi XML sau khi sắp xếp
+            dataset = `<sinhviens>${students.map(student => student.outerHTML).join("")}</sinhviens>`;
+            tai_danhsach_sinhvien();
+        }
+
+        window.onload = tai_danhsach_sinhvien;
+    </script>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <!-- Hàng tiêu đề chính -->
+            <tr>
+                <th colspan="4" class="header-main">Danh sách Sinh Viên</th>
+            </tr>
+            <!-- Hàng tiêu đề cột -->
+            <tr>
+                <th onclick="sapXep('mssv')">Mã sinh viên</th>
+                <th onclick="sapXep('hoTen')">Họ tên</th>
+                <th onclick="sapXep('ngaySinh')">Ngày sinh</th>
+                <th onclick="sapXep('gioiTinh')">Giới tính</th>
+            </tr>
+        </thead>
+        <tbody id="tbodysinhvien">
+            <!-- Nội dung sẽ được thêm bởi JavaScript -->
+        </tbody>
+    </table>    
+</body>
+</html>

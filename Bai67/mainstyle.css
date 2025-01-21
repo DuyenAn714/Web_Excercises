@@ -1,0 +1,50 @@
+/* Định dạng chung cho bảng */
+table {
+    width: 70%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 10px;
+}
+
+/* Hàng tiêu đề chính (hàng 1) */
+th.header-main {
+    text-align: center;
+    background-color: #ff9900; /* Nền cam */
+    color: #000000; /* Chữ đen */
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Hàng tiêu đề cột (hàng 2) */
+th {
+    background-color: green; /* Nền xanh */
+    color: #ffffff; /* Chữ trắng */
+    font-weight: bold;
+}
+
+/* Hàng dữ liệu */
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Nền nhạt cho hàng chẵn */
+}
+tr:nth-child(odd) {
+    background-color: #ffffff; /* Nền trắng cho hàng lẻ */
+}
+
+/* Hiệu ứng hover cho hàng dữ liệu */
+tr:hover {
+    background-color: yellow; /* Nền vàng khi hover */
+}
+
+/* Trang detail: Hàng đầu tiên */
+th.detail-header {
+    text-align: center;
+    background-color: #ff9900; /* Nền cam */
+    color: #000000; /* Chữ đen */
+    font-size: 20px;
+    font-weight: bold;
+}

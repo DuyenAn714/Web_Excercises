@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết Sinh Viên</title>
+    <link rel="stylesheet" href="mainstyle.css">
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <!-- Hàng tiêu đề chính -->
+            <tr>
+                <th colspan="2" class="detail-header">Chi tiết thông tin Sinh Viên</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Mã số sinh viên</td>
+                <td id="mssv"></td>
+            </tr>
+            <tr>
+                <td>Họ tên</td>
+                <td id="hoTen"></td>
+            </tr>
+            <tr>
+                <td>Ngày sinh</td>
+                <td id="ngaySinh"></td>
+            </tr>
+            <tr>
+                <td>Giới tính</td>
+                <td id="gioiTinh"></td>
+            </tr>
+        </tbody>
+    </table>    
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById("mssv").innerText = params.get("mssv");
+        document.getElementById("hoTen").innerText = params.get("hoTen");
+        document.getElementById("ngaySinh").innerText = params.get("ngaySinh");
+        document.getElementById("gioiTinh").innerText = params.get("gioiTinh");
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<html>
+<head>
+    <title>Thông Tin Sinh Viên</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 20px auto;
+            width: 50%;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        tr:first-child th {
+            text-align: center;
+            background-color: #ffb300;
+            font-size: 18px;
+        }
+        /* Hiệu ứng khi di chuột */
+        tr:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+    </style>
+    <script>
+        function loadStudentInfo() {
+            // Chuỗi XML chứa thông tin sinh viên
+            const xmlString = `
+                <sinhvien>
+                    <mssv>K123456789</mssv>
+                    <hoTen>Quách Thị Bán Bún Bò</hoTen>
+                    <ngaySinh>7/7/1997</ngaySinh>
+                    <gioiTinh>Nữ</gioiTinh>
+                </sinhvien>
+            `;
+
+            // Phân tích XML bằng DOMParser
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+            // Lấy thông tin từ XML
+            const mssv = xmlDoc.getElementsByTagName("mssv")[0].textContent;
+            const hoTen = xmlDoc.getElementsByTagName("hoTen")[0].textContent;
+            const ngaySinh = xmlDoc.getElementsByTagName("ngaySinh")[0].textContent;
+            const gioiTinh = xmlDoc.getElementsByTagName("gioiTinh")[0].textContent;
+
+            // Gắn thông tin vào các ô trong bảng
+            document.getElementById("mssv").textContent = mssv;
+            document.getElementById("hoTen").textContent = hoTen;
+            document.getElementById("ngaySinh").textContent = ngaySinh;
+            document.getElementById("gioiTinh").textContent = gioiTinh;
+
+            // Thêm sự kiện di chuột vào và ra cho các dòng bảng
+            const rows = document.querySelectorAll("table tr");
+            rows.forEach((row, index) => {
+                if (index > 0) { // Bỏ qua tiêu đề
+                    row.addEventListener("mouseover", () => {
+                        row.style.backgroundColor = "#007bff";
+                        row.style.color = "#ffffff";
+                    });
+                    row.addEventListener("mouseout", () => {
+                        row.style.backgroundColor = "#ffffff";
+                        row.style.color = "#000000";
+                    });
+                }
+            });
+        }
+    </script>
+</head>
+<body onload="loadStudentInfo()">
+    <table>
+        <tr>
+            <th colspan="2">Chi tiết thông tin Sinh Viên</th>
+        </tr>
+        <tr>
+            <td>Mã số sinh viên</td>
+            <td id="mssv"></td>
+        </tr>
+        <tr>
+            <td>Họ tên</td>
+            <td id="hoTen"></td>
+        </tr>
+        <tr>
+            <td>Ngày sinh</td>
+            <td id="ngaySinh"></td>
+        </tr>
+        <tr>
+            <td>Giới tính</td>
+            <td id="gioiTinh"></td>
+        </tr>
+    </table>
+</body>
+</html>
