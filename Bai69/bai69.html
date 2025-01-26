@@ -1,9 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách Nhân viên theo Title</title>
+    <style>
+        /* Định dạng bảng */
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        /* Định dạng hàng tiêu đề */
+        thead tr:first-child {
+            background-color: #f0f0f0;
+        }
+        thead tr:nth-child(2) {
+            background-color: #007bff; /* Nền xanh dương */
+            color: #ffffff; /* Chữ trắng */
+        }
+    </style>
     <script>
         // Dữ liệu XML
         var xmlData = `<?xml version="1.0" encoding="UTF-8"?> 
@@ -14,19 +32,19 @@
                 </employee>
                 <employee id="2" title="Engineer">
                     <name>Đoàn Chinh Thuần</name>
-                    <phone>01656152042</phone>
+                    <phone>01655654534</phone>
                 </employee>
                 <employee id="3" title="Teacher">
                     <name>Trần Chính Nghĩa</name>
-                    <phone>01656152042</phone>
+                    <phone>0981234567</phone>
                 </employee>
                 <employee id="4" title="Architect">
                     <name>Châu Bá Thông</name>
-                    <phone>01656152042</phone>
+                    <phone>0978976665</phone>
                 </employee>
                 <employee id="5" title="Engineer">
                     <name>Kiểu Phong</name>
-                    <phone>01656152042</phone>
+                    <phone>0901334556</phone>
                 </employee>
             </employees>`;
 
@@ -72,6 +90,10 @@
                 if (title === selectedTitle) {
                     var row = document.createElement("tr");
 
+                    var idCell = document.createElement("td");
+                    idCell.innerText = employee.getAttribute("id");
+                    row.appendChild(idCell);
+
                     var nameCell = document.createElement("td");
                     nameCell.innerText = employee.getElementsByTagName("name")[0].childNodes[0].nodeValue;
                     row.appendChild(nameCell);
@@ -85,24 +107,26 @@
             }
         }
 
-        // Gọi hàm để load title khi trang web tải xong
         window.onload = function() {
             loadTitles();
         };
     </script>
 </head>
 <body>
-    <h1>Danh sách Nhân viên theo Title</h1>
-
-    <label for="titleComboBox">Chọn Title:</label>
-    <select id="titleComboBox" onchange="loadEmployeesByTitle()">
-        <option value="">Chọn title</option>
-        <!-- Các options sẽ được nạp qua JavaScript -->
-    </select>
-
-    <table border="1">
+    <h1 align="center">Danh sách Nhân viên theo Title</h1>
+    <table>
         <thead>
             <tr>
+                <th>Chọn Title</th>
+                <td colspan="2">
+                    <select id="titleComboBox" onchange="loadEmployeesByTitle()">
+                        <option value="">Chọn title</option>
+                        <!-- Các options sẽ được nạp qua JavaScript -->
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Mã nhân viên</th>
                 <th>Tên</th>
                 <th>Số điện thoại</th>
             </tr>
