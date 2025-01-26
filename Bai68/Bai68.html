@@ -1,0 +1,73 @@
+<html>
+<head>
+    <title>CD Collection</title>
+    <style>
+        table {
+            width: 30%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        function loadCDs() {
+            // Create an XMLHttpRequest object
+            const xhttp = new XMLHttpRequest();
+
+            // Define what happens when the response is loaded
+            xhttp.onload = function() {
+                // Parse the XML response
+                const xmlDoc = xhttp.responseXML;
+                const cds = xmlDoc.getElementsByTagName("CD");
+                const tableBody = document.querySelector("#cdTable tbody");
+
+                // Clear the table body
+                tableBody.innerHTML = "";
+
+                // Loop through the CD elements and add rows to the table
+                for (let i = 0; i < cds.length; i++) {
+                    const artist = cds[i].getElementsByTagName("ARTIST")[0].textContent;
+                    const title = cds[i].getElementsByTagName("TITLE")[0].textContent;
+
+                    const row = document.createElement("tr");
+                    row.innerHTML = `<td>${artist}</td><td>${title}</td>`;
+                    tableBody.appendChild(row);
+                }
+            };
+
+            // Configure the request
+            xhttp.open("GET", "cd_catalog.xml", true);
+
+            // Send the request
+            xhttp.send();
+        }
+    </script>
+</head>
+<body>
+    <button onclick="loadCDs()">Get my CD collection</button>
+    <table id="cdTable">
+        <thead align="center">
+            <tr>
+                <th>Artist</th>
+                <th>Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted here -->
+        </tbody>
+    </table>
+
+</body>
+</html>
