@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách Sinh Viên</title>
     <link rel="stylesheet" href="mainstyle.css">
     <script>
@@ -36,8 +33,8 @@
             var tbody = document.getElementById("tbodysinhvien");
 
             tbody.innerHTML = ""; // Xóa dữ liệu cũ
-            for (let i = 0; i < students.length; i++) { // Dùng `let` để tạo phạm vi block
-                let student = students[i]; // Dùng `let` để giữ giá trị tại mỗi vòng lặp
+            for (let i = 0; i < students.length; i++) { 
+                let student = students[i]; 
                 let mssv = student.getElementsByTagName("mssv")[0].childNodes[0].nodeValue;
                 let hoTen = student.getElementsByTagName("hoTen")[0].childNodes[0].nodeValue;
                 let ngaySinh = student.getElementsByTagName("ngaySinh")[0].childNodes[0].nodeValue;
@@ -106,7 +103,7 @@
             </tr>
         </thead>
         <tbody id="tbodysinhvien">
-            <!-- Nội dung sẽ được thêm bởi JavaScript -->
+            <!-- Nội dung được thêm bởi JavaScript -->
         </tbody>
     </table>    
 </body>

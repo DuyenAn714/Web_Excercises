@@ -22,7 +22,7 @@
             font-size: 18px;
         }
         /* Hiệu ứng khi di chuột */
-        tr:hover {
+        tr td:hover {
             background-color: #007bff;
             color: #ffffff;
         }
@@ -58,7 +58,7 @@
             // Thêm sự kiện di chuột vào và ra cho các dòng bảng
             const rows = document.querySelectorAll("table tr");
             rows.forEach((row, index) => {
-                if (index > 0) { // Bỏ qua tiêu đề
+                if (index > 0) { 
                     row.addEventListener("mouseover", () => {
                         row.style.backgroundColor = "#007bff";
                         row.style.color = "#ffffff";
