@@ -1,0 +1,31 @@
+<div class="fashion-container">
+  <h2>Danh sách Fashion</h2>
+  
+  <div class="actions-bar">
+    <div class="style-filter">
+      <label for="styleSelect">Lọc theo Style: </label>
+      <select id="styleSelect" (change)="filterByStyle($any($event.target).value)">
+        <option value="">Tất cả Styles</option>
+        <option *ngFor="let style of styles" [value]="style">{{ style }}</option>
+      </select>
+    </div>
+  </div>
+  
+  <div *ngIf="isLoading" class="loading">Đang tải dữ liệu...</div>
+  
+  <div *ngIf="!isLoading && fashionList.length === 0" class="no-data">
+    Không có dữ liệu fashion.
+  </div>
+  
+  <div class="fashion-grid">
+    <div *ngFor="let item of fashionList" class="fashion-card" (click)="viewDetails(item._id)">
+      <div class="thumbnail-container">
+        <img [src]="getImagePath(item.thumbnail)" alt="{{ item.title }}">
+      </div>
+      <div class="fashion-info">
+        <h3>{{ item.title }}</h3>
+        <span class="style-label">{{ item.style }}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="detail-container">
+    <button class="back-button" (click)="goBack()">← Quay lại</button>
+    
+    <div *ngIf="isLoading" class="loading">Đang tải dữ liệu...</div>
+    
+    <div *ngIf="!isLoading && fashion" class="fashion-detail">
+      <div class="header">
+        <h1>{{ fashion.title }}</h1>
+        <span class="style-label">{{ fashion.style }}</span>
+      </div>
+      
+      <div class="main-image">
+        <img [src]="getImagePath(fashion.thumbnail)" alt="{{ fashion.title }}">
+      </div>
+      
+      <div class="content" [innerHTML]="fashion.details"></div>
+      
+      <div class="metadata">
+        <p>Ngày tạo: {{ fashion.createdAt | date:'dd/MM/yyyy' }}</p>
+      </div>
+    </div>
+  </div>

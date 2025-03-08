@@ -1,0 +1,45 @@
+<div class="container" style="padding: 2rem 0;">
+  <div style="box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden; background-color: #fff; max-width: 1000px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-bottom: 1px solid #dee2e6;">
+      <h4 style="margin: 0; font-size: 1.5rem; color: #343a40; font-weight: 600;">Chi tiết sản phẩm thời trang</h4>
+    </div>
+    
+    <div style="padding: 2rem;" *ngIf="fashionItem">
+      <div style="display: flex; flex-wrap: wrap; margin: -15px;">
+        <div style="flex: 1; min-width: 300px; padding: 15px;">
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-weight: 600; color: #495057; margin-bottom: 0.5rem;">ID:</label>
+            <div style="background-color: #f8f9fa; padding: 0.75rem; border-radius: 6px; margin: 0; color: #6c757d;">{{ fashionItem._id }}</div>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-weight: 600; color: #495057; margin-bottom: 0.5rem;">Tên sản phẩm:</label>
+            <div style="background-color: #f8f9fa; padding: 0.75rem; border-radius: 6px; margin: 0; color: #212529; font-size: 1.1rem;">{{ fashionItem.title }}</div>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-weight: 600; color: #495057; margin-bottom: 0.5rem;">Phong cách:</label>
+            <div style="background-color: #f8f9fa; padding: 0.75rem; border-radius: 6px; margin: 0; color: #212529;">{{ fashionItem.style }}</div>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-weight: 600; color: #495057; margin-bottom: 0.5rem;">Mô tả:</label>
+            <div style="background-color: #f8f9fa; padding: 0.75rem; border-radius: 6px; margin: 0; color: #212529; line-height: 1.6;" [innerHTML]="fashionItem.details"></div>
+          </div>
+        </div>
+        
+        <div style="flex: 1; min-width: 300px; padding: 15px;">
+          <div style="margin-bottom: 1.5rem;" *ngIf="fashionItem.thumbnail">
+            <label style="display: block; font-weight: 600; color: #495057; margin-bottom: 0.5rem;">Hình ảnh:</label>
+            <div style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+              <img [src]="fashionItem.thumbnail" style="width: 100%; height: auto; display: block; object-fit: cover;" alt="{{ fashionItem.title }}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="padding: 1.5rem; border-top: 1px solid #dee2e6; background-color: #f8f9fa; display: flex; gap: 10px;">
+      <button style="background-color: #ffc107; color: #212529; border: none; padding: 0.5rem 1.25rem; border-radius: 5px; cursor: pointer; font-weight: 500; transition: all 0.3s ease;" (click)="editFashion(fashionItem?._id)">Sửa</button>
+      <button style="background-color: #dc3545; color: white; border: none; padding: 0.5rem 1.25rem; border-radius: 5px; cursor: pointer; font-weight: 500; transition: all 0.3s ease;" (click)="deleteFashion(fashionItem?._id)">Xóa</button>
+      <button style="background-color: #6c757d; color: white; border: none; padding: 0.5rem 1.25rem; border-radius: 5px; cursor: pointer; font-weight: 500; transition: all 0.3s ease;" (click)="goBack()">Quay lại</button>
+    </div>
+  </div>
+</div>

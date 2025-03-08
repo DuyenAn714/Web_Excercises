@@ -1,0 +1,162 @@
+<div class="container" style="padding: 2rem 0;">
+  <div style="box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden; background-color: #fff; max-width: 900px; margin: 0 auto;">
+    <!-- Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-bottom: 1px solid #dee2e6;">
+      <h4 style="margin: 0; font-size: 1.5rem; color: #343a40; font-weight: 600;">
+        <i class="fas fa-tshirt" style="margin-right: 10px;"></i>
+        {{ isEditMode ? 'Chỉnh sửa' : 'Thêm mới' }} sản phẩm thời trang
+      </h4>
+      <button class="btn" style="background-color: #6c757d; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; transition: all 0.3s ease;" (click)="goBack()">
+        <i class="fas fa-arrow-left" style="margin-right: 5px;"></i> Quay lại
+      </button>
+    </div>
+    
+    <!-- Form Body -->
+    <div style="padding: 2rem;">
+      <form [formGroup]="fashionForm" (ngSubmit)="onSubmit()">
+        <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+          <!-- Left column - Form fields -->
+          <div style="flex: 1; min-width: 300px;">
+            <!-- Tên sản phẩm -->
+            <div style="margin-bottom: 1.5rem;">
+              <label for="title" style="display: block; font-weight: 600; color: #495057; margin-bottom: 0.5rem;">
+                Tên sản phẩm <span style="color: #dc3545;">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="title" 
+                formControlName="title"
+                style="width: 100%; padding: 0.75rem; border-radius: 6px; border: 1px solid #ced4da; transition: border-color 0.15s ease-in-out; font-size: 1rem;"
+                [ngClass]="{'is-invalid': submitted && f['title'].errors, 'border-danger': submitted && f['title'].errors}"
+                placeholder="Nhập tên sản phẩm"
+              >
+              <div *ngIf="submitted && f['title'].errors" style="color: #dc3545; font-size: 0.875rem; margin-top: 0.25rem;">
+                <div *ngIf="f['title'].errors['required']">Tên sản phẩm là bắt buộc</div>
+              </div>
+            </div>
+            
+            <!-- Phong cách -->
+            <div style="margin-bottom: 1.5rem;">
+              <label for="style" style="display: block; font-weight: 600; color: #495057; margin-bottom: 0.5rem;">
+                Phong cách <span style="color: #dc3545;">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="style" 
+                formControlName="style"
+                style="width: 100%; padding: 0.75rem; border-radius: 6px; border: 1px solid #ced4da; transition: border-color 0.15s ease-in-out; font-size: 1rem;"
+                [ngClass]="{'is-invalid': submitted && f['style'].errors, 'border-danger': submitted && f['style'].errors}"
+                placeholder="Nhập phong cách (vd: Casual, Formal, Vintage...)"
+              >
+              <div *ngIf="submitted && f['style'].errors" style="color: #dc3545; font-size: 0.875rem; margin-top: 0.25rem;">
+                <div *ngIf="f['style'].errors['required']">Phong cách là bắt buộc</div>
+              </div>
+            </div>
+            
+            <!-- Mô tả -->
+            <div style="margin-bottom: 1.5rem;">
+              <label for="details" style="display: block; font-weight: 600; color: #495057; margin-bottom: 0.5rem;">
+                Mô tả <span style="color: #dc3545;">*</span>
+              </label>
+              <textarea 
+                id="details" 
+                rows="5" 
+                formControlName="details"
+                style="width: 100%; padding: 0.75rem; border-radius: 6px; border: 1px solid #ced4da; transition: border-color 0.15s ease-in-out; font-size: 1rem; resize: vertical;"
+                [ngClass]="{'is-invalid': submitted && f['details'].errors, 'border-danger': submitted && f['details'].errors}"
+                placeholder="Nhập mô tả chi tiết về sản phẩm"
+              ></textarea>
+              <div *ngIf="submitted && f['details'].errors" style="color: #dc3545; font-size: 0.875rem; margin-top: 0.25rem;">
+                <div *ngIf="f['details'].errors['required']">Mô tả sản phẩm là bắt buộc</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right column - Image upload -->
+          <div style="flex: 1; min-width: 300px;">
+            <div style="margin-bottom: 1.5rem;">
+              <label style="display: block; font-weight: 600; color: #495057; margin-bottom: 0.5rem;">
+                Hình ảnh <span style="color: #dc3545;">*</span>
+              </label>
+              
+              <!-- Hidden input for API URL -->
+              <input 
+                type="hidden" 
+                formControlName="thumbnail"
+                [ngClass]="{'is-invalid': submitted && f['thumbnail'].errors}"
+              >
+              
+              <!-- Image preview area -->
+              <div style="border: 2px dashed #ced4da; border-radius: 10px; padding: 1.5rem; text-align: center; margin-bottom: 1rem; transition: all 0.3s ease; background-color: #f8f9fa; position: relative; min-height: 200px; cursor: pointer; display: flex; justify-content: center; align-items: center;" 
+                   (click)="fileInput.click()">
+                
+                <div *ngIf="!imagePreview" style="width: 100%;">
+                  <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #6c757d; margin-bottom: 1rem; display: block;"></i>
+                  <p style="margin: 0; color: #6c757d;">Nhấp để tải lên hình ảnh</p>
+                  <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #6c757d;">Hỗ trợ: JPG, PNG, GIF</p>
+                </div>
+                
+                <!-- Image preview with contain mode to ensure no cropping -->
+                <img *ngIf="imagePreview" 
+                     [src]="imagePreview" 
+                     style="max-width: 100%; max-height: 250px; object-fit: contain; border-radius: 6px;"
+                     alt="Preview">
+              </div>
+              
+              <!-- File input (hidden) -->
+              <input 
+                #fileInput
+                type="file"
+                style="display: none;"
+                accept="image/*"
+                (change)="onFileSelected($event)"
+              >
+              
+              <!-- Upload button -->
+              <button 
+                type="button" 
+                style="width: 100%; padding: 0.75rem; border-radius: 6px; background-color: #e9ecef; color: #495057; border: 1px solid #ced4da; cursor: pointer; font-weight: 500; transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; gap: 8px;"
+                (click)="fileInput.click()">
+                <i class="fas fa-upload"></i> Chọn hình ảnh
+              </button>
+              
+              <div *ngIf="submitted && f['thumbnail'].errors" style="color: #dc3545; font-size: 0.875rem; margin-top: 0.5rem; text-align: center;">
+                <div *ngIf="f['thumbnail'].errors['required']">Hình ảnh là bắt buộc</div>
+              </div>
+              
+              <!-- File name display -->
+              <div *ngIf="uploadedFile" style="margin-top: 0.75rem; font-size: 0.875rem; color: #495057; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                <i class="fas fa-file-image"></i>
+                <span>{{ uploadedFile.name }}</span>
+                <span style="color: #6c757d; font-size: 0.75rem;">({{ (uploadedFile.size / 1024).toFixed(1) }} KB)</span>
+              </div>
+
+              <!-- Upload progress -->
+              <div *ngIf="isUploading" style="margin-top: 0.75rem;">
+                <div style="height: 6px; background-color: #e9ecef; border-radius: 3px; overflow: hidden;">
+                  <div 
+                    style="height: 100%; background-color: #0d6efd; transition: width 0.3s ease;"
+                    [style.width.%]="uploadProgress">
+                  </div>
+                </div>
+                <div style="text-align: center; margin-top: 0.25rem; font-size: 0.75rem; color: #6c757d;">
+                  {{ uploadProgress }}% Đã tải lên
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Form buttons -->
+        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #dee2e6; display: flex; gap: 1rem;">
+          <button type="submit" style="background-color: #0d6efd; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-save"></i> Lưu sản phẩm
+          </button>
+          <button type="button" style="background-color: #6c757d; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;" (click)="resetForm()">
+            <i class="fas fa-redo"></i> Đặt lại
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
